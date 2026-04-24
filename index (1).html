@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salt Burger House</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --green: #18a84a;
+  --green-light: #22c55e;
+  --green-pale: #e8f8ee;
+  --green-pale2: #d1f0df;
+  --bg: #ffffff;
+  --bg2: #f4faf6;
+  --bg3: #eaf6ef;
+  --dark: #0d1f14;
+  --dark2: #1a3326;
+  --muted: #5a7a66;
+  --border: #d0e8d8;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--dark);
+  font-family: 'Barlow', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 1px 12px rgba(0,0,0,0.06);
+}
+
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 26px;
+  letter-spacing: 2px;
+  color: var(--green);
+  cursor: pointer;
+}
+.nav-logo span { color: var(--dark); }
+
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--green);
+  color: #fff;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+}
+.nav-cta:hover { background: var(--green-light); }
+.nav-cta:active { transform: scale(0.97); }
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 110px 24px 70px;
+  overflow: hidden;
+  background: var(--green-pale);
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 20%, rgba(24,168,74,0.18) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 40% at 90% 90%, rgba(24,168,74,0.12) 0%, transparent 60%);
+  z-index: 0;
+}
+
+.hero-dots {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(24,168,74,0.2) 1.5px, transparent 1.5px);
+  background-size: 28px 28px;
+  z-index: 0;
+}
+
+.hero-content { position: relative; z-index: 1; max-width: 640px; }
+
+.hero-badge {
+  display: inline-block;
+  background: rgba(24,168,74,0.12);
+  border: 1.5px solid rgba(24,168,74,0.35);
+  color: var(--green);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 6px 18px;
+  border-radius: 100px;
+  margin-bottom: 28px;
+  animation: fadeUp 0.6s ease both;
+}
+
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(78px, 19vw, 136px);
+  line-height: 0.88;
+  letter-spacing: 2px;
+  color: var(--dark);
+  margin-bottom: 10px;
+  animation: fadeUp 0.6s 0.1s ease both;
+}
+.hero-title .accent { color: var(--green); }
+
+.hero-sub {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(18px, 5vw, 26px);
+  font-weight: 700;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 32px;
+  animation: fadeUp 0.6s 0.2s ease both;
+}
+
+.hero-tagline {
+  font-size: 16px;
+  color: var(--muted);
+  margin-bottom: 44px;
+  animation: fadeUp 0.6s 0.3s ease both;
+  max-width: 340px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: fadeUp 0.6s 0.4s ease both;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--green);
+  color: #fff;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 18px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 16px 32px;
+  border-radius: 6px;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 6px 24px rgba(24,168,74,0.3);
+  transition: transform 0.15s, box-shadow 0.2s, background 0.2s;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(24,168,74,0.4); background: var(--green-light); }
+.btn-primary:active { transform: scale(0.97); }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  color: var(--green);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 16px 32px;
+  border-radius: 6px;
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid var(--green);
+  transition: background 0.2s, color 0.2s;
+}
+.btn-secondary:hover { background: var(--green); color: #fff; }
+
+.hero-scroll {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  animation: bounce 2s infinite;
+  z-index: 1;
+}
+.hero-scroll::after {
+  content: '';
+  width: 1px;
+  height: 36px;
+  background: linear-gradient(to bottom, var(--muted), transparent);
+}
+
+section { position: relative; }
+
+.section-label {
+  display: inline-block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 10px;
+}
+
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(48px, 12vw, 80px);
+  line-height: 1;
+  letter-spacing: 1px;
+  color: var(--dark);
+}
+
+.divider { height: 1px; background: var(--border); }
+
+.menu-section { padding: 80px 0; background: var(--bg); }
+
+.menu-inner { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+.menu-header { margin-bottom: 44px; }
+
+.menu-group { margin-bottom: 44px; }
+
+.menu-group-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--green);
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--green-pale2);
+  margin-bottom: 4px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--border);
+  gap: 16px;
+}
+
+.menu-item-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  flex-shrink: 0;
+}
+
+.menu-item-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--dark);
+  flex: 1;
+}
+
+.menu-item-badge {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: var(--green-pale);
+  color: var(--green);
+  border: 1px solid var(--green-pale2);
+  padding: 4px 11px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+.menu-cta-row { text-align: center; margin-top: 44px; }
+
+.locations-section { padding: 80px 0; background: var(--bg2); }
+
+.locations-inner { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+.locations-header { margin-bottom: 36px; }
+.locations-header p { color: var(--muted); margin-top: 10px; font-size: 15px; }
+
+.location-card {
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 22px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.location-card:hover {
+  border-color: var(--green);
+  box-shadow: 0 4px 20px rgba(24,168,74,0.12);
+}
+
+.loc-left { display: flex; align-items: flex-start; gap: 14px; }
+
+.loc-icon {
+  width: 44px; height: 44px;
+  background: var(--green-pale);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 20px;
+}
+
+.loc-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 19px;
+  color: var(--dark);
+  line-height: 1.2;
+  margin-bottom: 3px;
+}
+
+.loc-detail { font-size: 13px; color: var(--muted); }
+
+.loc-phone {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--green);
+  margin-top: 5px;
+}
+
+.btn-call {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--green);
+  color: #fff;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 12px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.2s, transform 0.15s;
+}
+.btn-call:hover { background: var(--green-light); }
+.btn-call:active { transform: scale(0.96); }
+
+.cta-band {
+  padding: 80px 24px;
+  background: var(--green);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cta-band::before {
+  content: 'SALT';
+  position: absolute;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 280px;
+  color: rgba(255,255,255,0.08);
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  letter-spacing: 10px;
+  white-space: nowrap;
+}
+
+.cta-band .section-label { color: rgba(255,255,255,0.65); }
+.cta-band .section-title { color: #fff; margin-bottom: 12px; }
+.cta-band p { color: rgba(255,255,255,0.8); margin-bottom: 36px; font-size: 17px; max-width: 360px; margin-left: auto; margin-right: auto; }
+
+.btn-white {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  color: var(--green);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 18px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 18px 40px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.15);
+  transition: transform 0.15s, opacity 0.2s;
+}
+.btn-white:hover { transform: translateY(-2px); }
+.btn-white:active { transform: scale(0.97); }
+
+footer {
+  background: var(--dark);
+  color: #fff;
+  padding: 52px 24px 36px;
+  text-align: center;
+}
+
+.footer-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  letter-spacing: 3px;
+  color: var(--green-light);
+  margin-bottom: 4px;
+  cursor: pointer;
+}
+.footer-logo span { color: #fff; }
+
+.footer-tagline {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 28px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+.footer-links a {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--green-light); }
+
+.footer-ig {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #fff;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 1px;
+  padding: 10px 22px;
+  border-radius: 100px;
+  text-decoration: none;
+  margin-bottom: 36px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.footer-ig:hover { border-color: var(--green-light); background: rgba(34,197,94,0.1); }
+
+.footer-copy { font-size: 12px; color: rgba(255,255,255,0.2); letter-spacing: 1px; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(7px); }
+}
+
+@media (max-width: 500px) {
+  .location-card { flex-direction: column; align-items: flex-start; }
+  .btn-call { width: 100%; justify-content: center; }
+  .hero-actions { flex-direction: column; align-items: center; }
+  .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo" onclick="go('home')">SALT <span>BURGER</span></div>
+  <a href="tel:+251907999000" class="nav-cta">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9a16 16 0 0 0 5.91 5.91l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+    Call Now
+  </a>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-dots"></div>
+  <div class="hero-content">
+    <div class="hero-badge">🍔 Addis Ababa's Smash Burgers</div>
+    <h1 class="hero-title">
+      <span class="accent">BOLD.</span><br>
+      FRESH.<br>
+      FAST.
+    </h1>
+    <p class="hero-sub">Salt Burger House</p>
+    <p class="hero-tagline">Five locations across the city — always close, always good.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="go('locations')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9a16 16 0 0 0 5.91 5.91l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        Find &amp; Call
+      </button>
+      <button class="btn-secondary" onclick="go('menu')">View Menu ↓</button>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<div class="divider"></div>
+
+<section class="menu-section" id="menu">
+  <div class="menu-inner">
+    <div class="menu-header">
+      <span class="section-label">What We Make</span>
+      <h2 class="section-title">THE MENU</h2>
+    </div>
+
+    <div class="menu-group">
+      <div class="menu-group-title">Burgers</div>
+      <div class="menu-item"><div class="menu-item-dot"></div><div class="menu-item-name">Classic Smash</div></div>
+      <div class="menu-item"><div class="menu-item-dot"></div><div class="menu-item-name">Double Smash</div></div>
+      <div class="menu-item"><div class="menu-item-dot"></div><div class="menu-item-name">Crispy Chicken Burger</div></div>
+      <div class="menu-item"><div class="menu-item-dot"></div><div class="menu-item-name">BBQ Bacon Burger</div></div>
+      <div class="menu-item"><div class="menu-item-dot"></div><div class="menu-item-name">Mushroom Swiss Burger</div></div>
+    </div>
+
+    <div class="menu-group">
+      <div class="menu-group-title">Signature &amp; Premium</div>
+      <div class="menu-item"><div class="menu-item-dot"></div><div class="menu-item-name">The Salt Stack</div><div class="menu-item-badge">⭐ Fan Fave</div></div>
+      <div class="menu-item"><div class="menu-item-dot"></div><div class="menu-item-name">Gold Standard</div><div class="menu-item-badge">Signature</div></div>
+      <div class="menu-item"><div class="menu-item-dot"></div><div class="menu-item-name">Truffle Smash</div><div class="menu-item-badge">Premium</div></div>
+      <div class="menu-item"><div class="menu-item-dot"></div><div class="menu-item-name">Spicy Triple Stack</div><div class="menu-item-badge">🔥 Hot</div></div>
+    </div>
+
+    <div class="menu-group">
+      <div class="menu-group-title">Sides</div>
+      <div class="menu-item"><div class="menu-item-dot"></div><div class="menu-item-name">Crispy Fries</div></div>
+      <div class="menu-item"><div class="menu-item-dot"></div><div class="menu-item-name">Loaded Fries</div><div class="menu-item-badge">Fan Fave</div></div>
+      <div class="menu-item"><div class="menu-item-dot"></div><div class="menu-item-name">Onion Rings</div></div>
+      <div class="menu-item"><div class="menu-item-dot"></div><div class="menu-item-name">Coleslaw</div></div>
+    </div>
+
+    <div class="menu-group">
+      <div class="menu-group-title">Drinks</div>
+      <div class="menu-item"><div class="menu-item-dot"></div><div class="menu-item-name">Soft Drinks</div></div>
+      <div class="menu-item"><div class="menu-item-dot"></div><div class="menu-item-name">Fresh Lemonade</div></div>
+      <div class="menu-item"><div class="menu-item-dot"></div><div class="menu-item-name">Milkshake</div></div>
+      <div class="menu-item"><div class="menu-item-dot"></div><div class="menu-item-name">Iced Tea</div></div>
+    </div>
+
+    <div class="menu-cta-row">
+      <button class="btn-primary" onclick="go('locations')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9a16 16 0 0 0 5.91 5.91l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        Order by Phone
+      </button>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="locations-section" id="locations">
+  <div class="locations-inner">
+    <div class="locations-header">
+      <span class="section-label">Find Us</span>
+      <h2 class="section-title">OUR BRANCHES</h2>
+      <p>Five locations — tap Call to reach your nearest one.</p>
+    </div>
+
+    <div class="location-card">
+      <div class="loc-left">
+        <div class="loc-icon">📍</div>
+        <div>
+          <div class="loc-name">Bole Road</div>
+          <div class="loc-detail">TotalEnergies Service Station</div>
+          <div class="loc-phone">+251-907999000 / 111</div>
+        </div>
+      </div>
+      <a href="tel:+251907999000" class="btn-call">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9a16 16 0 0 0 5.91 5.91l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        Call
+      </a>
+    </div>
+
+    <div class="location-card">
+      <div class="loc-left">
+        <div class="loc-icon">📍</div>
+        <div>
+          <div class="loc-name">Century Mall</div>
+          <div class="loc-detail">Food Court</div>
+          <div class="loc-phone">+251-938999444 / 906265555</div>
+        </div>
+      </div>
+      <a href="tel:+251938999444" class="btn-call">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9a16 16 0 0 0 5.91 5.91l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        Call
+      </a>
+    </div>
+
+    <div class="location-card">
+      <div class="loc-left">
+        <div class="loc-icon">📍</div>
+        <div>
+          <div class="loc-name">Tor Hailoch</div>
+          <div class="loc-detail">Queens Supermarket</div>
+          <div class="loc-phone">+251-938999955 / 555</div>
+        </div>
+      </div>
+      <a href="tel:+251938999955" class="btn-call">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9a16 16 0 0 0 5.91 5.91l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        Call
+      </a>
+    </div>
+
+    <div class="location-card">
+      <div class="loc-left">
+        <div class="loc-icon">📍</div>
+        <div>
+          <div class="loc-name">Gullele Medhanialem</div>
+          <div class="loc-detail">TotalEnergies</div>
+          <div class="loc-phone">+251-903488848 / 904478847</div>
+        </div>
+      </div>
+      <a href="tel:+251903488848" class="btn-call">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9a16 16 0 0 0 5.91 5.91l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        Call
+      </a>
+    </div>
+
+    <div class="location-card">
+      <div class="loc-left">
+        <div class="loc-icon">📍</div>
+        <div>
+          <div class="loc-name">Century Executive Tower</div>
+          <div class="loc-detail">Addis Ababa</div>
+          <div class="loc-phone">+251-953999222 / 555</div>
+        </div>
+      </div>
+      <a href="tel:+251953999222" class="btn-call">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9a16 16 0 0 0 5.91 5.91l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        Call
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <span class="section-label">Ready to Order?</span>
+  <h2 class="section-title">CALL YOUR<br>NEAREST BRANCH</h2>
+  <p>Pick up the phone, pick your branch — we'll handle the rest.</p>
+  <button class="btn-white" onclick="go('locations')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9a16 16 0 0 0 5.91 5.91l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+    See All Locations
+  </button>
+</section>
+
+<footer>
+  <div class="footer-logo" onclick="go('home')">SALT <span>BURGER</span></div>
+  <div class="footer-tagline">Bold. Fresh. Fast.</div>
+  <div style="margin-bottom:20px;">
+    <a href="https://www.instagram.com/saltburgerhouse/" target="_blank" class="footer-ig">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
+      @saltburgerhouse
+    </a>
+  </div>
+  <div class="footer-links">
+    <a onclick="go('home')">Home</a>
+    <a onclick="go('menu')">Menu</a>
+    <a onclick="go('locations')">Locations</a>
+  </div>
+  <div class="footer-copy">© 2025 Salt Burger House · All rights reserved</div>
+</footer>
+
+<script>
+function go(id) {
+  var el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+
+</body>
+</html>
